@@ -5,17 +5,18 @@ handleNowPlaying:
   package:
     patterns:
       - "!./*"
-      - bin/handleNowPlaying"
+      - "bin/handleNowPlaying"
 
   events:
-    - http:
+    - httpApi:
         method: GET
-        path: getCurrentTrack
-        cors: true
+        path: /getCurrentTrack
+        # cors: true
 
   environment:
     SPOTIFY_CLIENT_ID: "{{resolve:secretsmanager:dev/jasonhou/spotifyCredentials:SecretString:SPOTIFY_CLIENT_ID}}"
     SPOTIFY_CLIENT_SECRET: "{{resolve:secretsmanager:dev/jasonhou/spotifyCredentials:SecretString:SPOTIFY_CLIENT_SECRET}}"
+    SPOTIFY_REFRESH_TOKEN: "{{resolve:secretsmanager:dev/jasonhou/spotifyCredentials:SecretString:SPOTIFY_REFRESH_TOKEN}}"
 
   role: { "Fn::GetAtt": ["HandleNowPlayingLambdaRole", "Arn"] }
 

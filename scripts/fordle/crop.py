@@ -1,0 +1,6 @@
+f = open("./scripts/fordle/newWordList.txt", "r")
+wordList = f.read().split("\n")
+print(len(wordList))
+f.close()
+f = open("./scripts/fordle/newWordList.txt", "w")
+f.write("\n".join([x for x in wordList if len(x) >= 3]))

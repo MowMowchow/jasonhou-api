@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "serverless-domain-manager": "^6.2.1"
+  }
+}

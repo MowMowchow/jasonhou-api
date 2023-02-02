@@ -15,10 +15,6 @@ type SpotifyExternalUrls struct {
 	Spotify string `json:"spotify,omitempty"`
 }
 
-type SpotifyExternalURLs struct {
-	spotify string
-}
-
 type SpotifyArtist struct {
 	ExternalUrls SpotifyExternalUrls `json:"external_urls,omitempty"`
 	Name         string              `json:"name,omitempty"`
@@ -33,9 +29,17 @@ type CurrentPlayingItem struct {
 	Album        SpotifyAlbum        `json:"album,omitempty"`
 	Artists      []SpotifyArtist     `json:"artists,omitempty"`
 	Name         string              `json:"name,omitempty"`
-	ExternalUrls SpotifyExternalURLs `json:"external_urls,omitempty"`
+	ExternalUrls SpotifyExternalUrls `json:"external_urls,omitempty"`
 }
 
 type CurrentPlayingResponse struct {
 	Item CurrentPlayingItem `json:"item,omitempty"`
+}
+
+type SpotifyTokenResponseBody struct {
+	AccessToken  string `json:"access_token"`
+	TokenType    string `json:"token_type"`
+	Scope        string `json:"scope"`
+	ExpiresIn    int    `json:"expires_in"`
+	RefreshToken string `json:"refresh_token"`
 }

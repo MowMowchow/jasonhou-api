@@ -14,10 +14,25 @@ provider:
   stage: dev
   region: us-east-1
 
+custom:
+  # aliasOriginHostedZoneId: Z05415581P9Z11PATYJI5
+  # aliasDestHostedZoneId: Z2FDTNDATAQYW2
+  # websiteName: "wwww.jasonhou.ca"
+  # aliasDnsName: "d2adrk8w7t8g9x.cloudfront.net"
+
+  customDomain:
+    domainName: api.jasonhou.ca
+    stage: ${self:provider.stage}
+    basePath: "api"
+    certificateName: api.jasonhou.ca
+    createRoute52Record: true
+
 resources:
   # lambda resources
   - ${file(./aws-resources/lambdas/handleNowPlaying.yml):supportingResources}
+  - ${file(./aws-resources/lambdas/fordle/handleGetBoard.yml):supportingResources}
 
 functions:
   # lambda resources
   - handleNowPlaying: ${file(./aws-resources/lambdas/handleNowPlaying.yml):handleNowPlaying}
+  - handleGetBoard: ${file(./aws-resources/lambdas/fordle/handleGetBoard.yml):handleGetBoard}

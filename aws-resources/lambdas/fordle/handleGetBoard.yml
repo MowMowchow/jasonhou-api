@@ -1,0 +1,43 @@
+handleGetBoard:
+  handler: bin/handleGetBoard
+  runtime: go1.x
+  timeout: 10
+  package:
+    patterns:
+      - "!./*"
+      - "bin/handleGetBoard"
+
+  events:
+    - httpApi:
+        method: GET
+        path: /getBoard/{boardSize}
+        # cors: true
+
+  role: { "Fn::GetAtt": ["HandleGetBoardLambdaRole", "Arn"] }
+
+supportingResources:
+  Resources:
+    HandleGetBoardLambdaRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - "lambda.amazonaws.com"
+              Action:
+                - "sts:AssumeRole"
+        Policies:
+          - PolicyName: "HandleGetBoardLambdaLogPolicy"
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - "logs:CreateLogGroup"
+                    - "logs:CreateLogStream"
+                    - "logs:PutLogEvents"
+                  Resource:
+                    - "*"

@@ -1,0 +1,15 @@
+# Resources:
+#   JasonhouDnsRecords:
+#     Type: AWS::Route53::RecordSetGroup
+#     DependsOn:
+#       - Website
+#       - WebsiteRedirect
+
+#     Properties:
+#       HostedZoneId: ${self:custom.aliasOriginHostedZoneId}
+#       RecordSets:
+#         - Name: ${self:custom.websiteName}.
+#           Type: A
+#           AliasTarget:
+#             DNSName: ${self:custom.aliasDnsName}
+#             HostedZoneId: ${self:custom.aliasDestHostedZoneId}
