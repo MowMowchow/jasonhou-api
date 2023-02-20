@@ -93,12 +93,14 @@ func Clone(a interface{}) interface{} {
 	return v.Elem().Interface()
 }
 
-func findWordsDfs(cBoard CurrentBoard, x int, y int, t *trieNode, vis map[Coordinate]bool) {
+func findWordsDfs(cBoard CurrentBoard, x int, y int, t *trieNode, vis map[Coordinate]bool) bool {
 	currCoor := Coordinate{x: x, y: y}
+	wordExists := false
 	if _, exists := vis[currCoor]; !exists {
 		vis[currCoor] = true
 		if t.isWord {
 			cBoard.wordList[t.word] = true
+			wordExists = true
 		}
 		for _, move := range moves {
 			nx := x + move[0]
@@ -114,7 +116,7 @@ func findWordsDfs(cBoard CurrentBoard, x int, y int, t *trieNode, vis map[Coordi
 			}
 		}
 	}
-
+	return wordExists
 }
 
 func findWords(cBoard CurrentBoard, trie *trieNode) []string {

@@ -49,10 +49,12 @@ func generateBoard(batchName string, boardSize int, batchSize int, cropAmount st
 			tempBoard := Board{}
 			tempBoard.board = board.board
 			tempBoard.words = findWords(board, trie)
-			tempBoard.wordCount = len(tempBoard.words)
-			mutex.Lock()
-			tempBoardList = append(tempBoardList, tempBoard)
-			mutex.Unlock()
+			if len(tempBoard.words) > 0 {
+				tempBoard.wordCount = len(tempBoard.words)
+				mutex.Lock()
+				tempBoardList = append(tempBoardList, tempBoard)
+				mutex.Unlock()
+			}
 		}()
 	}
 	wg.Wait()
